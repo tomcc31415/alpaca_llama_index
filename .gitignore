@@ -1,1 +1,5 @@
 /index.json
+models/ggml-vocab.bin
+models/tokenizer.model
+models/gpt4all-7B/gpt4all-lora-quantized.bin
+models/gpt4all-7B/gpt4all-lora-quantized.bin.orig
