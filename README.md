@@ -6,9 +6,8 @@ This is a Python script that creates and tests a language model index based on t
 
 To run this script, you will need:
 
-- Python 3.x
-- The Langchain library (`pip install langchain`)
-- The Transformers library (`pip install transformers`)
+- Python 3.9 or 3.10
+- The Langchain library (`pip install -r requirements.txt`)
 
 ## Usage
 

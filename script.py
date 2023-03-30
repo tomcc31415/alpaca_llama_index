@@ -1,5 +1,13 @@
-import os
+# This code creates an index, and queries it using a query string. The query string is passed to the run_query function, which calls the query method on the index. The response from the query method is printed.
+# The index is created using the initialize_list_index function.
+# The initialize_list_index function creates an index, and adds documents to it.
+# The query method of the index returns a SearchResponse object, which has a response attribute.
+# The response attribute is a list of dict objects, each of which represents a document in the index.
+# The query string is a natural language query.
+# The query string is a list query, which is a type of query that returns a list of documents.
+# The query string specifies that the list should contain 5 characters in the novel The Great Gatsby.
 
+import os
 
 from initialize_list_index import initialize_list_index
 
@@ -10,26 +18,12 @@ def run_query(index, query):
     response = index.query(query)
     print(response.response)
 
-def test_index(index):
-    questions = [
-        "What did Gatsby do for a living?",
-        "What is the significance of the green light in The Great Gatsby?",
-        "Who is the narrator in The Great Gatsby?",
-        "What happens to Gatsby at the end of the novel?",
-    ]
-
-    for question in questions:
-        print(f"Question: {question}")
-        run_query(index, question)
-
-def main(test=True):
+def main():
     index = initialize_list_index()
 
-    if test:
-        test_index(index)
-    else:
-        query = "List 5 characters in the novel The Great Gatsby."
-        run_query(index, query)
+    query = "List 5 characters in the novel The Great Gatsby."
+    run_query(index, query)
 
 if __name__ == "__main__":
-    main(test=False)
+    main()
+
