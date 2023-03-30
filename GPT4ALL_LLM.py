@@ -1,3 +1,8 @@
+# The code below is used to generate the response to the user's input
+# The prompt is the input the user gave, and we add the token "### Response:" to tell the model where to start generating
+# We then run the C++ binary with the input prompt, and we get the response back
+# We then return the response, which is the text that the model generated
+
 from langchain.llms.base import LLM
 import subprocess
 from typing import Any, List, Mapping, Optional
@@ -14,6 +19,7 @@ class GPT4ALL_LLM(LLM):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
 
+        # Add the prompt to the beginning of the generated text
         prompt += "### Response:"
 
         # Prepare the command to run the C++ binary
@@ -39,20 +45,16 @@ class GPT4ALL_LLM(LLM):
             str(self.ctx_size),
         ]
 
-        if DEBUG:
-            print("Input Prompt:", prompt)
-
         try:
+            # Run the C++ binary and capture the output
             result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         except Exception as e:
             print("Error running the C++ binary:", e)
             return ""
 
+        # Remove the prompt from the output
         response = result.stdout
         response = response[len(prompt):]
-
-        if DEBUG:
-            print("Model Response:", response)
 
         return response
 
