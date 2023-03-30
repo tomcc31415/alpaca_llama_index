@@ -1,3 +1,0 @@
-peft==0.2.0
-llama_index==0.4.26
-langchain==0.0.126
