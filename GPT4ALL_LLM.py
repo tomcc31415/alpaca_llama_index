@@ -56,6 +56,12 @@ class GPT4ALL_LLM(LLM):
         response = result.stdout
         response = response[len(prompt):]
 
+        # Log input and output if DEBUG flag is set
+        if DEBUG:
+            print("Input prompt:", prompt)
+            print("Command output:", result.stdout)
+            print("Cleaned response:", response)
+
         return response
 
     @property
@@ -64,4 +70,4 @@ class GPT4ALL_LLM(LLM):
 
     @property
     def _llm_type(self) -> str:
-        return "custom"
+        return "GPT4ALL_LLM"

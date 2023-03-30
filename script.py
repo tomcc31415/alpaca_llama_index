@@ -9,7 +9,8 @@
 
 import os
 
-from initialize_list_index import initialize_list_index
+from initialize_simple_vector_index import initialize_simple_vector_index
+#from initialize_list_index import initialize_list_index
 
 # Set environment variables
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -19,7 +20,7 @@ def run_query(index, query):
     print(response.response)
 
 def main():
-    index = initialize_list_index()
+    index= initialize_simple_vector_index()
 
     query = "List 5 characters in the novel The Great Gatsby."
     run_query(index, query)

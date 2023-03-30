@@ -21,7 +21,7 @@ def initialize_list_index():
         # Load the index if it exists
         index = GPTListIndex.load_from_disk(index_file, service_context=service_context)
     else:
-        # Load the your data
+        # Load your data
         documents = SimpleDirectoryReader('./data').load_data()
         # Create the index from the data
         index = GPTListIndex.from_documents(documents, service_context=service_context)

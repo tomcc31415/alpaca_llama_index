@@ -20,6 +20,12 @@ python gpt_index.py
 
 By default, the script will run in test mode, which tests the index with a set of pre-defined questions. If you want to run a custom query instead, change the `test` argument in the `main()` function to `False`, and edit the `query` variable to contain your query string.
 
+
+## Faiss
+If you want to use the Faiss library to speed up the index, you will need to install it separately. You can do this by running (assuming you are using a conda environment):
+
+```conda install -c pytorch/label/nightly faiss-cpu ```
+
 ## License
 
 This script is licensed under the MIT License. Feel free to modify and use it as you see fit.
