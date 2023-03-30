@@ -3,3 +3,6 @@ models/ggml-vocab.bin
 models/tokenizer.model
 models/gpt4all-7B/gpt4all-lora-quantized.bin
 models/gpt4all-7B/gpt4all-lora-quantized.bin.orig
+index_list_index.json
+__pycache__/gpt_llm.cpython-310.pyc
+.gitignore
