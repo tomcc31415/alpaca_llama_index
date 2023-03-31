@@ -6,7 +6,7 @@
 from langchain.llms.base import LLM
 import subprocess
 from typing import Any, List, Mapping, Optional
-DEBUG = True
+DEBUG = False
 
 class GPT4ALL_LLM(LLM):
     threads: int = 4
@@ -16,6 +16,24 @@ class GPT4ALL_LLM(LLM):
     temp: float = 0.8
     ctx_size: int = 512
     n_predict: int = 128
+
+    def __init__(self, threads: int = None, batch_size: int = None, repeat_last_n: int = None,
+                 repeat_penalty: float = None, temp: float = None, ctx_size: int = None, n_predict: int = None):
+        super().__init__()  # call the parent class's constructor
+        if threads is not None:
+            self.threads = threads
+        if batch_size is not None:
+            self.batch_size = batch_size
+        if repeat_last_n is not None:
+            self.repeat_last_n = repeat_last_n
+        if repeat_penalty is not None:
+            self.repeat_penalty = repeat_penalty
+        if temp is not None:
+            self.temp = temp
+        if ctx_size is not None:
+            self.ctx_size = ctx_size
+        if n_predict is not None:
+            self.n_predict = n_predict
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
 

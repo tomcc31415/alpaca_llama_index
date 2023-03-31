@@ -6,15 +6,30 @@
 from GPT4ALL_LLM import GPT4ALL_LLM
 from llama_index import GPTListIndex, LLMPredictor, PromptHelper, ServiceContext, SimpleDirectoryReader
 import os
+import json
 
 def initialize_list_index():
-    # Setup the prompt helper to handle the max input size, num output, and chunk overlap
-    max_input_size = 512
-    num_output = 256
-    max_chunk_overlap = 20
-    prompt_helper = PromptHelper(max_input_size, num_output, max_chunk_overlap)
-    # Setup the LLM predictor to use your GPT4ALL_LLM model
-    llm_predictor = LLMPredictor(llm=GPT4ALL_LLM())
+    # Load the configuration file
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+
+    # Configure the PromptHelper to handle max input size, number of outputs, and chunk overlap
+    prompt_helper = PromptHelper(
+        config['max_input_size'],
+        config['num_output'],
+        config['max_chunk_overlap']
+    )
+    # Set up the LLM predictor to use your GPT4ALL_LLM model
+    llm_predictor = LLMPredictor(llm=GPT4ALL_LLM(
+        threads=config.get('threads', 4),
+        batch_size=config.get('batch_size', 8),
+        repeat_last_n=config.get('repeat_last_n', 64),
+        repeat_penalty=config.get('repeat_penalty', 1.1),
+        temp=config.get('temp', 0.8),
+        ctx_size=config.get('ctx_size', 512),
+        n_predict=config.get('n_predict', 128)
+    ))
+
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, prompt_helper=prompt_helper)
     index_file = 'index_list_index.json'
     if os.path.exists(index_file):

@@ -1,12 +1,11 @@
 from GPT4ALL_LLM import GPT4ALL_LLM
-from llama_index import LLMPredictor, PromptHelper, ServiceContext, SimpleDirectoryReader, GPTSimpleVectorIndex, LangchainEmbedding
+from llama_index import LLMPredictor, PromptHelper, ServiceContext, SimpleDirectoryReader, GPTFaissIndex, LangchainEmbedding
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-
+import faiss
 import json
 import os
 
-
-def initialize_simple_vector_index():
+def initialize_faiss_vector_index():
     # Load the configuration file
     with open('config.json', 'r') as f:
         config = json.load(f)
@@ -31,8 +30,9 @@ def initialize_simple_vector_index():
     # Initialize the embedding model for language chains
     embed_model = LangchainEmbedding(HuggingFaceEmbeddings())
 
-    # Set up the LLM predictor to use your GPT4ALL_LLM model
-    llm_predictor = LLMPredictor(llm=GPT4ALL_LLM())
+    # Create a faiss index
+    d = 768
+    faiss_index = faiss.IndexFlatL2(d)
 
     # Create a service context with default settings
     service_context = ServiceContext.from_defaults(
@@ -42,28 +42,30 @@ def initialize_simple_vector_index():
     )
 
     # Specify the index file
-    index_file = 'index_simple_vector_index.json'
+    index_file = 'index_faiss_vector_index.json'
 
     # Check if the index file exists
     if os.path.exists(index_file):
         # Load the index if it exists
-        index = GPTSimpleVectorIndex.load_from_disk(
+        index = GPTFaissIndex.load_from_disk(
             index_file,
-            service_context=service_context
+            service_context=service_context,
+            faiss_index=faiss_index
         )
     else:
         # Verify the existence of the data directory
         data_dir = './data'
         if not os.path.exists(data_dir):
-            raise ValueError(f'Data directory {data_dir}does not exist')
-        
+            raise ValueError(f'Data directory {data_dir} does not exist')
+
         # Create a reader to load data from the data directory
         reader = SimpleDirectoryReader(data_dir)
         documents = reader.load_data()
 
-        # Build the GPTSimpleVectorIndex from the loaded documents
-        index = GPTSimpleVectorIndex.from_documents(
+        # Build the GPTFaissIndex from the loaded documents
+        index = GPTFaissIndex.from_documents(
             documents,
+            faiss_index=faiss_index,
             service_context=service_context
         )
 
@@ -71,4 +73,3 @@ def initialize_simple_vector_index():
         index.save_to_disk(index_file)
 
     return index
-

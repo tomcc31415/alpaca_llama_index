@@ -1,6 +1,7 @@
-/index.json
 models/*
 __pycache__/*
 .gitignore
 .conda/*
+index_simple_vector_index.json
+index_faiss_index.json
 index_simple_vector_index.json

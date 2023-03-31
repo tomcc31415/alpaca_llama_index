@@ -1,0 +1,24 @@
+{
+    "generic_book_questions": [
+      {
+        "question": "Who is the author of the book?",
+        "expected_answer": "Author's name"
+      },
+      {
+        "question": "What is the main theme of the book?",
+        "expected_answer": "Main theme of the book"
+      },
+      {
+        "question": "Describe the protagonist in the book.",
+        "expected_answer": "Description of the protagonist"
+      },
+      {
+        "question": "What is the setting of the story?",
+        "expected_answer": "Setting of the story"
+      },
+      {
+        "question": "What is the conflict in the story?",
+        "expected_answer": "Conflict in the story"
+      }
+    ]
+}
