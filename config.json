@@ -1,12 +1,12 @@
 {
-    "max_input_size": 1024,
+    "max_input_size": 512,
     "num_output": 128,
-    "max_chunk_overlap": 100,
+    "max_chunk_overlap": 50,
     "threads": 4,
     "batch_size": 8,
     "repeat_last_n": 64,
-    "repeat_penalty": 1.1,
-    "temp": 0.8,
+    "repeat_penalty": 1,
+    "temp": 0.2,
     "ctx_size": 512,
     "n_predict": 128
 }

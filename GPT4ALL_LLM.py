@@ -13,8 +13,8 @@ class GPT4ALL_LLM(LLM):
     batch_size: int = 8
     repeat_last_n: int = 64
     repeat_penalty: float = 1.1
-    temp: float = 0.8
-    ctx_size: int = 512
+    temp: float = 0.6
+    ctx_size: int = 1024
     n_predict: int = 128
 
     def __init__(self, threads: int = None, batch_size: int = None, repeat_last_n: int = None,
@@ -44,7 +44,7 @@ class GPT4ALL_LLM(LLM):
         command = [
             "./main",
             "-m",
-            "./models/gpt4all-7B/gpt4all-lora-quantized.bin",
+            "./models/gpt4all-lora-unfiltered-quantized-converted.bin",
             "-p",
             prompt,
             "-n",

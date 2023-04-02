@@ -1,5 +1,4 @@
 langchain
 llama_index
 peft
-faiss
 sentence-transformers
